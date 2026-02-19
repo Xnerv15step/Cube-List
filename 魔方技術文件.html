@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>魔術方塊技術文件</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <nav id="navbar">
+    <header>🧩 魔術方塊<br><span>技術文件</span></header>
+    <a class="nav-link" href="#基本結構">基本結構</a>
+    <a class="nav-link" href="#符號系統">符號系統</a>
+    <a class="nav-link" href="#還原方法">還原方法</a>
+    <a class="nav-link" href="#演算法公式">演算法公式</a>
+    <a class="nav-link" href="#進階技巧">進階技巧</a>
+  </nav>
+
+  <main id="main-doc">
+
+    <section class="main-section" id="基本結構">
+      <header>基本結構</header>
+      <p>標準魔術方塊（Rubik's Cube）是一個 3×3×3 的立體拼圖，由奧地利建築師 Ernő Rubik 於 1974 年發明。整個方塊由 26 個可見的小方塊組成，加上中心軸機構共 27 個單元。</p>
+      <p>方塊分為三種類型的零件：中心塊（Center）、稜塊（Edge）和角塊（Corner）。中心塊永遠固定代表該面的顏色；稜塊有兩個顏色面；角塊有三個顏色面。</p>
+      <p>六個面各有一個顏色，標準配色為：白對黃、橘對紅、綠對藍。了解這個結構是還原方塊的基礎。</p>
+      <ul>
+        <li>中心塊（Center Pieces）：6 個，固定位置，決定各面顏色</li>
+        <li>稜塊（Edge Pieces）：12 個，位於各稜邊，有 2 個顏色</li>
+        <li>角塊（Corner Pieces）：8 個，位於各角落，有 3 個顏色</li>
+      </ul>
+      <code>// 方塊狀態的數學統計
+總排列數 = 43,252,003,274,489,856,000
+         ≈ 4.3 × 10^19（約 430 億億種狀態）
+God's Number（神之數）= 20
+// 任何狀態最多 20 步（HTM）即可還原</code>
+      <p>魔術方塊的群論（Group Theory）讓我們能精確描述每個狀態與操作的數學關係，是現代速解演算法的理論基礎。</p>
+    </section>
+
+    <section class="main-section" id="符號系統">
+      <header>符號系統</header>
+      <p>魔術方塊的標準符號系統（Notation）由 David Singmaster 於 1979 年提出，至今仍是全球通用的溝通語言。每個字母代表一個面的旋轉操作。</p>
+      <p>基本六個面的縮寫分別為：<span class="inline-code">U</span>（上）、<span class="inline-code">D</span>（下）、<span
+          class="inline-code">L</span>（左）、<span class="inline-code">R</span>（右）、<span
+          class="inline-code">F</span>（前）、<span class="inline-code">B</span>（後）。</p>
+      <p>符號的修飾規則如下：</p>
+      <ul>
+        <li>單獨字母（如 <span class="inline-code">R</span>）：順時針旋轉 90°</li>
+        <li>加撇號（如 <span class="inline-code">R'</span>）：逆時針旋轉 90°</li>
+        <li>加數字 2（如 <span class="inline-code">R2</span>）：旋轉 180°</li>
+        <li>小寫字母（如 <span class="inline-code">r</span>）：雙層旋轉（Wide Move）</li>
+        <li><span class="inline-code">M</span>、<span class="inline-code">E</span>、<span
+            class="inline-code">S</span>：中間層旋轉</li>
+      </ul>
+      <code>// 常用符號對照表
+U  → 上層順時針    U' → 上層逆時針    U2 → 上層 180°
+D  → 下層順時針    D' → 下層逆時針    D2 → 下層 180°
+R  → 右層順時針    R' → 右層逆時針    R2 → 右層 180°
+L  → 左層順時針    L' → 左層逆時針    L2 → 左層 180°
+F  → 前層順時針    F' → 前層逆時針    F2 → 前層 180°
+B  → 後層順時針    B' → 後層逆時針    B2 → 後層 180°
+M  → 中層（同 L）  E  → 中層（同 D）  S  → 中層（同 F）</code>
+      <p>熟悉符號系統後，就能讀懂任何速解教學與競賽還原解法，這是學習魔術方塊的第一步。</p>
+    </section>
+
+    <section class="main-section" id="還原方法">
+      <header>還原方法</header>
+      <p>還原魔術方塊有多種方法，適合不同程度的玩家。最常見的入門方法是「層先法」（Layer by Layer），顧名思義就是一層一層地還原方塊。</p>
+      <p>CFOP 是目前世界主流的速解方法，由 Jessica Fridrich 發展完善，縮寫代表四個步驟：Cross（十字）、F2L（下兩層）、OLL（頂層朝向）、PLL（頂層排列）。</p>
+      <p>Roux 方法是另一種流行的速解系統，著重於減少移動步數並大量使用 M 層旋轉，廣受高階選手喜愛。</p>
+      <div class="tip-box">💡 建議新手先學層先法，平均約 100 步還原；熟練後再學習 CFOP，平均只需 55～60 步。</div>
+      <p>常見還原方法比較：</p>
+      <ul>
+        <li>層先法（Beginner's Method）：步驟多但直觀，適合初學者</li>
+        <li>CFOP：主流速解法，WCA 世界紀錄保持者多採用此法</li>
+        <li>Roux：效率高、手法獨特，學習曲線較陡</li>
+        <li>ZZ：預規劃 EO，適合電一手法的選手</li>
+      </ul>
+      <code>// 層先法還原流程（偽代碼）
+function solveLayerByLayer(cube):
+  step1_white_cross(cube)      // 白色十字
+  step2_white_corners(cube)    // 白色角塊 → 完成第一層
+  step3_middle_edges(cube)     // 中層稜塊 → 完成第二層
+  step4_yellow_cross(cube)     // 黃色十字
+  step5_orient_corners(cube)   // 頂層角塊朝向
+  step6_permute_corners(cube)  // 頂層角塊排列
+  step7_permute_edges(cube)    // 頂層稜塊排列 → 完成！</code>
+    </section>
+
+    <section class="main-section" id="演算法公式">
+      <header>演算法公式</header>
+      <p>公式（Algorithm）是一串特定的轉動序列，用來在不破壞已完成部分的情況下改變特定方塊位置。每個公式針對特定情況設計，熟記常用公式是提升速度的關鍵。</p>
+      <p>以下是幾個必學的基礎公式，涵蓋從初學到進階的各個階段：</p>
+      <p><span class="badge badge-green">F2L</span> 右手配對（Right-Hand Slot）：</p>
+      <code>R U R'</code>
+      <p><span class="badge badge-green">F2L</span> 左手配對（Left-Hand Slot）：</p>
+      <code>L' U' L</code>
+      <p><span class="badge badge-blue">OLL</span> 頂層十字（Dot Case）：</p>
+      <code>F R U R' U' F' f R U R' U' f'</code>
+      <p><span class="badge badge-orange">PLL</span> T 排列（T-Perm）—— 交換對角稜塊與角塊：</p>
+      <code>R U R' U' R' F R2 U' R' U' R U R' F'</code>
+      <p>公式練習建議：先理解原理再記憶，每天反覆練習直到形成肌肉記憶。熟練的速解選手能在 0.3 秒內執行一個完整公式。</p>
+    </section>
+
+    <section class="main-section" id="進階技巧">
+      <header>進階技巧</header>
+      <p>達到 sub-1 分鐘（一分鐘內還原）後，進一步提升速度需要掌握進階技巧，這些技巧涵蓋手法效率、視覺追蹤與策略規劃。</p>
+      <p>Look-ahead（前瞻）是最重要的進階技能：在執行當前公式時，眼睛同時追蹤下一個需要處理的方塊，避免「停頓思考」的時間浪費。</p>
+      <p>Fingertricks（手指技巧）直接影響 TPS（每秒轉動次數）。高效的手指技巧包括：</p>
+      <ol>
+        <li>U 層旋轉盡量使用食指或中指，而非整個手掌</li>
+        <li>右手 R 移動使用中指推動，比食指更快</li>
+        <li>練習雙手同步操作，左右手均衡發力</li>
+        <li>D 層移動盡可能用 Wide Move 代替以減少換手</li>
+        <li>連續相同方向的旋轉應一氣呵成不換手</li>
+      </ol>
+      <div class="tip-box">🏆 目前 3×3 魔術方塊世界紀錄：Max Park 於 2023 年創下 3.13 秒的單次還原紀錄。</div>
+      <p>X-Cross（擴展十字）是 F2L 的高級變體，在製作白色十字的同時一併完成第一個 F2L 配對，等同於節省了整個 F2L 配對的時間。</p>
+      <code>// 速解訓練計畫建議
+const trainingPlan = {
+  初學者: { 目標: "sub-3min", 每日練習: "20 次計時還原" },
+  中級者: { 目標: "sub-30sec", 每日練習: "50 次計時還原 + 手法練習" },
+  高級者: { 目標: "sub-10sec", 每日練習: "100+ 次還原 + 視頻分析" }
+};</code>
+      <p>參加 WCA（世界魔術方塊協會）比賽是提升動力的好方法，官方賽事包含多個項目，適合各種程度的玩家挑戰自我。</p>
+    </section>
+
+  </main>
+</body>
+
+</html>

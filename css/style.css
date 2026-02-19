@@ -1,0 +1,202 @@
+/* ===== Reset ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Body ===== */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #1a1a2e;
+  color: #e0e0e0;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== Navbar ===== */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  background: #16213e;
+  border-right: 1px solid rgba(255, 255, 255, .07);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+#navbar header {
+  padding: 28px 24px 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+  border-bottom: 2px solid #00BFFF;
+  line-height: 1.4;
+}
+
+#navbar header span {
+  color: #00BFFF;
+}
+
+.nav-link {
+  display: block;
+  padding: 13px 24px;
+  font-size: 13px;
+  letter-spacing: .8px;
+  color: #aaa;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: all .2s;
+}
+
+.nav-link:hover {
+  color: #00BFFF;
+  border-left-color: #00BFFF;
+  background: rgba(0, 191, 255, .06);
+}
+
+/* ===== Main Doc ===== */
+#main-doc {
+  margin-left: 280px;
+  padding: 48px 56px;
+  max-width: 960px;
+  width: 100%;
+}
+
+/* ===== Sections ===== */
+.main-section {
+  margin-bottom: 60px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, .07);
+}
+
+.main-section:last-child {
+  border-bottom: none;
+}
+
+.main-section header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #00BFFF;
+  margin-bottom: 20px;
+  padding-left: 14px;
+  border-left: 4px solid #00BFFF;
+}
+
+.main-section p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #c0c0c0;
+  margin-bottom: 14px;
+}
+
+/* ===== Lists ===== */
+.main-section ul,
+.main-section ol {
+  padding-left: 20px;
+  margin-bottom: 14px;
+}
+
+.main-section li {
+  font-size: 14px;
+  line-height: 2;
+  color: #c0c0c0;
+  list-style: disc;
+}
+
+.main-section ol li {
+  list-style: decimal;
+}
+
+/* ===== Code Blocks ===== */
+code {
+  display: block;
+  background: #0f3460;
+  border: 1px solid rgba(0, 191, 255, .2);
+  border-left: 3px solid #00BFFF;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #00ffe7;
+  margin: 16px 0;
+  white-space: pre;
+  overflow-x: auto;
+  line-height: 1.7;
+}
+
+.inline-code {
+  display: inline;
+  background: #0f3460;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #fdcb6e;
+}
+
+/* ===== Badges ===== */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  margin-right: 6px;
+}
+
+.badge-blue {
+  background: rgba(0, 191, 255, .15);
+  border: 1px solid #00BFFF;
+  color: #00BFFF;
+}
+
+.badge-orange {
+  background: rgba(225, 112, 85, .15);
+  border: 1px solid #e17055;
+  color: #e17055;
+}
+
+.badge-green {
+  background: rgba(0, 184, 148, .15);
+  border: 1px solid #00b894;
+  color: #00b894;
+}
+
+/* ===== Tip Box ===== */
+.tip-box {
+  background: rgba(0, 191, 255, .07);
+  border: 1px solid rgba(0, 191, 255, .25);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 13px;
+  color: #a0d8ef;
+}
+
+/* ===== Media Query ===== */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  #navbar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
+  }
+
+  #main-doc {
+    margin-left: 0;
+    padding: 24px 20px;
+  }
+}
